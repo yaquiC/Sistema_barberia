@@ -6,6 +6,7 @@ import UserView from "@/views/UserView.vue";
 import AppointmentView from "@/views/AppointmentView.vue";
 import LoginView from "../views/LoginView.vue";
 import SpecialtyView from "@/views/SpecialtyView.vue";
+import ServiceView from "@/views/ServiceView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,11 @@ const router = createRouter({
       path: "/specialty",
       name: "especialidad",
       component: SpecialtyView,
+    },
+    {
+      path: "/service",
+      name: "servicio",
+      component: ServiceView,
     },
 
     {
