@@ -67,8 +67,8 @@ const save = () => {
             <label class="block mb-1 text-sm font-medium text-gray-700">Rol</label>
             <select v-model="form.role"
               class="w-full px-2 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-              <option value="GERENCIA">Gerencia</option>
-              <option value="CLIENTE">Cliente</option>
+              <option value="gerencia">Gerencia</option>
+              <option value="cliente">Cliente</option>
             </select>
           </div>
 
