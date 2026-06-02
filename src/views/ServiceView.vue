@@ -64,11 +64,14 @@ onMounted(() => {
 <template>
   <div class="container mt-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Servicios</h2>
+    <!-- Encabezado -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-3xl font-bold text-gray-800">
+        Servicios
+      </h2>
 
       <button
-        class="btn btn-primary"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow"
         @click="openCreateModal"
         data-bs-toggle="modal"
         data-bs-target="#serviceModal"
@@ -77,42 +80,58 @@ onMounted(() => {
       </button>
     </div>
 
-    <div class="card shadow-sm">
-      <div class="card-body">
+    <!-- Tabla -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
 
-        <table class="table table-hover align-middle">
+      <table class="min-w-full">
 
-          <thead class="table-dark">
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Precio</th>
-              <th>Duración</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
+        <thead class="bg-slate-800 text-white">
+          <tr>
+            <th class="px-6 py-4 text-left">ID</th>
+            <th class="px-6 py-4 text-left">Nombre</th>
+            <th class="px-6 py-4 text-left">Descripción</th>
+            <th class="px-6 py-4 text-left">Precio</th>
+            <th class="px-6 py-4 text-left">Duración</th>
+            <th class="px-6 py-4 text-center">Acciones</th>
+          </tr>
+        </thead>
 
-          <tbody>
+        <tbody class="divide-y divide-gray-200">
 
-            <tr
-              v-for="service in services"
-              :key="service.id"
-            >
-              <td>{{ service.id }}</td>
+          <tr
+            v-for="service in services"
+            :key="service.id"
+            class="hover:bg-gray-50 transition duration-200"
+          >
+            <td class="px-6 py-4 text-gray-700">
+              {{ service.id }}
+            </td>
 
-              <td>{{ service.name }}</td>
+            <td class="px-6 py-4 font-medium text-gray-900">
+              {{ service.name }}
+            </td>
 
-              <td>{{ service.description }}</td>
+            <td class="px-6 py-4 text-gray-600">
+              {{ service.description }}
+            </td>
 
-              <td>${{ service.price }}</td>
+            <td class="px-6 py-4">
+              <span
+                class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold"
+              >
+                ${{ service.price }}
+              </span>
+            </td>
 
-              <td>{{ service.duration }} min</td>
+            <td class="px-6 py-4 text-gray-700">
+              {{ service.duration }} min
+            </td>
 
-              <td>
+            <td class="px-6 py-4">
+              <div class="flex justify-center gap-2">
 
                 <button
-                  class="btn btn-success btn-sm me-2"
+                  class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm"
                   @click="openEditModal(service)"
                   data-bs-toggle="modal"
                   data-bs-target="#serviceModal"
@@ -121,29 +140,29 @@ onMounted(() => {
                 </button>
 
                 <button
-                  class="btn btn-danger btn-sm"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm"
                   @click="removeService(service.id)"
                 >
                   Eliminar
                 </button>
 
-              </td>
-            </tr>
+              </div>
+            </td>
+          </tr>
 
-            <tr v-if="services.length === 0">
-              <td
-                colspan="6"
-                class="text-center"
-              >
-                No hay servicios registrados
-              </td>
-            </tr>
+          <tr v-if="services.length === 0">
+            <td
+              colspan="6"
+              class="text-center py-8 text-gray-500"
+            >
+              No hay servicios registrados
+            </td>
+          </tr>
 
-          </tbody>
+        </tbody>
 
-        </table>
+      </table>
 
-      </div>
     </div>
 
     <ServiceModal

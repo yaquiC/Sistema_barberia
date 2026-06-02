@@ -40,47 +40,53 @@ onMounted(() => {
     <div class="d-flex justify-content-between mb-4">
       <h2>Usuarios</h2>
 
-      <button
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#userModal"
-      >
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">
         Nuevo Usuario
       </button>
     </div>
 
-    <div class="card">
-      <div class="card-body">
 
-        <table class="table">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <table class="min-w-full">
+        <thead class="bg-slate-800 text-white">
+          <tr>
+            <th class="px-6 py-4 text-left font-semibold">ID</th>
+            <th class="px-6 py-4 text-left font-semibold">Nombre</th>
+            <th class="px-6 py-4 text-left font-semibold">Correo</th>
+            <th class="px-6 py-4 text-left font-semibold">Rol</th>
+          </tr>
+        </thead>
 
-          <thead class="table-dark">
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Correo</th>
-              <th>Rol</th>
-            </tr>
-          </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50 transition duration-200">
+            <td class="px-6 py-4 text-gray-700">
+              {{ user.id }}
+            </td>
 
-          <tbody>
+            <td class="px-6 py-4 font-medium text-gray-900">
+              {{ user.name }}
+            </td>
 
-            <tr
-              v-for="user in users"
-              :key="user.id"
-            >
-              <td>{{ user.id }}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.role }}</td>
-            </tr>
+            <td class="px-6 py-4 text-gray-600">
+              {{ user.email }}
+            </td>
 
-          </tbody>
+            <td class="px-6 py-4">
+              <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                {{ user.role }}
+              </span>
+            </td>
+          </tr>
 
-        </table>
-
-      </div>
+          <tr v-if="users.length === 0">
+            <td colspan="4" class="text-center py-6 text-gray-500">
+              No hay usuarios registrados
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
 
     <UserModal @save="saveUser" />
 
