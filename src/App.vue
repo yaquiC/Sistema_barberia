@@ -1,5 +1,14 @@
 <script setup>
+
 import { useRoute } from "vue-router";
+import {
+  House,
+  Scissors,
+  UserRound,
+  Users,
+  CalendarDays,
+  LogOut,
+} from "lucide-vue-next";
 
 const route = useRoute();
 </script>
@@ -25,38 +34,28 @@ const route = useRoute();
       <!-- Menú -->
       <nav class="flex-1 py-4">
 
-        <router-link to="/"
-          class="flex items-center gap-3 px-5 py-3 text-sm hover:bg-gray-900 hover:text-white transition"
-          active-class="bg-slate-900 text-blue-400 border-l-4 border-blue-500">
-          <img src="@/assets/icons/casa.png" class="w-4 h-4" />
-          Inicio
+        <router-link to="/" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+          <House :size="20" />
+          <span>Inicio</span>
         </router-link>
 
-        <router-link to="/service"
-          class="flex items-center gap-3 px-5 py-3 text-sm hover:bg-gray-900 hover:text-white transition"
-          active-class="bg-slate-900 text-blue-400 border-l-4 border-blue-500">
-          <img src="@/assets/icons/barbero.png" class="w-4 h-4" />
+        <router-link to="/service" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+          <Scissors :size="20" />
           Servicios
         </router-link>
 
-        <router-link to="/barber"
-          class="flex items-center gap-3 px-5 py-3 text-sm hover:bg-gray-900 hover:text-white transition"
-          active-class="bg-slate-900 text-blue-400 border-l-4 border-blue-500">
-          <img src="@/assets/icons/poste-de-barbero.png" class="w-4 h-4" />
+        <router-link to="/barber" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+          <UserRound :size="20" />
           Barberos
         </router-link>
 
-        <router-link to="/user"
-          class="flex items-center gap-3 px-5 py-3 text-sm hover:bg-gray-900 hover:text-white transition"
-          active-class="bg-slate-900 text-blue-400 border-l-4 border-blue-500">
-          <img src="@/assets/icons/usuario.png" class="w-4 h-4" />
+        <router-link to="/user" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+          <Users :size="20" />
           Usuarios
         </router-link>
 
-        <router-link to="/appointment"
-          class="flex items-center gap-3 px-5 py-3 text-sm hover:bg-gray-900 hover:text-white transition"
-          active-class="bg-slate-900 text-blue-400 border-l-4 border-blue-500">
-          <img src="@/assets/icons/cita.png" class="w-4 h-4" />
+        <router-link to="/appointment" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+          <CalendarDays :size="20" />
           Citas
         </router-link>
 
@@ -65,8 +64,8 @@ const route = useRoute();
       <!-- Logout -->
       <div class="border-t border-gray-800 p-4">
         <button @click="logout" class="flex items-center gap-3 text-sm text-gray-400 hover:text-red-500 transition">
-          🚪
-          <span>Cerrar Sesión</span>
+          <LogOut :size="20" />
+          Cerrar Sesión
         </button>
       </div>
     </aside>
