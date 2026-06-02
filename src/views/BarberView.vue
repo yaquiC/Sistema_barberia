@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from "vue";
-
 import BarberModal from "../components/BarberModal.vue";
 
 import {
@@ -37,7 +36,6 @@ const saveBarber = async (data) => {
     } else {
       await createBarber(data);
     }
-
     await loadBarbers();
   } catch (error) {
     console.error(error);
@@ -46,13 +44,9 @@ const saveBarber = async (data) => {
 
 const removeBarber = async (id) => {
   if (!confirm("¿Eliminar barbero?")) return;
-
   try {
     await deleteBarber(id);
-
-    barbers.value = barbers.value.filter(
-      barber => barber.id !== id
-    );
+    barbers.value = barbers.value.filter(barber => barber.id !== id);
   } catch (error) {
     console.error(error);
   }
@@ -65,10 +59,8 @@ onMounted(() => {
 
 <template>
   <div class="container mt-4">
-
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2>Barberos</h2>
-
       <button
         class="btn btn-primary"
         @click="openCreateModal"
@@ -79,68 +71,40 @@ onMounted(() => {
       </button>
     </div>
 
-    <div class="card shadow-sm">
-      <div class="card-body">
-
-        <table class="table table-hover align-middle">
-
-          <thead class="table-dark">
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Especialidad</th>
-              <th width="180">Acciones</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            <tr
-              v-for="barber in barbers"
-              :key="barber.id"
+    <div class="row">
+      <div
+        class="col-md-4 mb-4"
+        v-for="barber in barbers"
+        :key="barber.id"
+      >
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ barber.name }}</h5>
+            <p class="card-text">
+              <strong>Especialidad:</strong> {{ barber.specialty?.name || "N/A" }}
+            </p>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <button
+              class="btn btn-success btn-sm"
+              @click="openEditModal(barber)"
+              data-bs-toggle="modal"
+              data-bs-target="#barberModal"
             >
-              <td>{{ barber.id }}</td>
+              Editar
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              @click="removeBarber(barber.id)"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
 
-              <td>{{ barber.name }}</td>
-
-              <td>
-                {{ barber.specialty?.name }}
-              </td>
-
-              <td>
-
-                <button
-                  class="btn btn-success btn-sm me-2"
-                  @click="openEditModal(barber)"
-                  data-bs-toggle="modal"
-                  data-bs-target="#barberModal"
-                >
-                  Editar
-                </button>
-
-                <button
-                  class="btn btn-danger btn-sm"
-                  @click="removeBarber(barber.id)"
-                >
-                  Eliminar
-                </button>
-
-              </td>
-            </tr>
-
-            <tr v-if="barbers.length === 0">
-              <td
-                colspan="4"
-                class="text-center"
-              >
-                No hay barberos registrados
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
+      <div v-if="barbers.length === 0" class="text-center mt-4">
+        <p>No hay barberos registrados</p>
       </div>
     </div>
 
@@ -148,6 +112,5 @@ onMounted(() => {
       :barber="selectedBarber"
       @save="saveBarber"
     />
-
   </div>
 </template>

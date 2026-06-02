@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import BarberView from "@/views/BarberView.vue";
 import UserView from "@/views/UserView.vue";
 import AppointmentView from "@/views/AppointmentView.vue";
+import AppointmentFormView from "@/views/AppointmentFormView.vue";
 import LoginView from "../views/LoginView.vue";
 import SpecialtyView from "@/views/SpecialtyView.vue";
 import ServiceView from "@/views/ServiceView.vue";
@@ -41,6 +42,16 @@ const router = createRouter({
       path: "/appointment",
       name: "citas",
       component: AppointmentView,
+    },
+    {
+      path: "/appointment/create",
+      name: "crear-cita",
+      component: AppointmentFormView,
+    },
+    {
+      path: "/appointment/edit/:id",
+      name: "editar-cita",
+      component: AppointmentFormView,
     },
     {
       path: "/login",

@@ -18,11 +18,6 @@ const route = useRoute();
           Inicio
         </router-link>
 
-        <router-link to="/specialty" class="menu-item">
-          <img src="@/assets/icons/barbero.png" alt="especialidad" width="20" />
-          Especialidades
-        </router-link>
-
         <router-link to="/service" class="menu-item">
           <img src="@/assets/icons/barbero.png" alt="especialidad" width="20" />
           Servicios
