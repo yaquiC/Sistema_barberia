@@ -8,6 +8,9 @@ const route = useRoute();
   <div class="layout">
 
     <aside v-if="route.path !== '/login'" class="sidebar">
+      <div class="logo">
+        <img src="@/assets/logo.png" alt="Legend Barber Logo" class="logo-img" />
+      </div>
       <h3 class="logo">
         Legend Barber
       </h3>
@@ -114,4 +117,15 @@ const route = useRoute();
 .content-full {
   width: 100%;
 }
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-img {
+  max-width: 150px; /* ajusta el tamaño */
+  height: auto;
+}
+
 </style>

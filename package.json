@@ -12,9 +12,11 @@
     "lint:eslint": "eslint . --fix --cache"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.0",
     "axios": "^1.16.1",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "tailwindcss": "^4.3.0",
     "vue": "^3.5.32",
     "vue-router": "^5.0.4"
   },
