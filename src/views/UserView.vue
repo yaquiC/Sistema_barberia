@@ -41,7 +41,11 @@ onMounted(() => {
     <div class="d-flex justify-content-between mb-4">
       <h2>Usuarios</h2>
 
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+      <button 
+      @click="openCreateModal"
+        data-bs-toggle="modal"
+        data-bs-target="#userModal"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
         <UserPlus :size="18" />
         Agregar Usuario
       </button>
