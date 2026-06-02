@@ -34,7 +34,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <section class="vh-100 bg-black">
+  <section class="vh-100 login-background">
     <div class="container py-5 h-100">
       <div
         class="row d-flex justify-content-center align-items-center h-100"
@@ -46,9 +46,10 @@ const handleLogin = async () => {
           >
             <div class="card-body p-5">
 
-              <h2 class="text-center mb-4">
+              <h2 class="text-center mb-4" style="color: white;">
                  Legen Barber
               </h2>
+              <h5 class="text-center " style="color: white;">Inica sesion</h5>
 
               <div
                 v-if="error"
@@ -99,20 +100,38 @@ const handleLogin = async () => {
 </template>
 
 <style scoped>
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #080808;
+.login-background {
+  position: relative;
+  background-image: url("/images/fondo.png"); /* coloca tu imagen en public/images */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* oscurece la imagen */
 }
 
 .login-card {
   width: 100%;
   max-width: 420px;
-  background: white;
+  background: rgba(255, 255, 255, 0.1); /* semitransparente */
   padding: 40px;
   border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,.2);
+  box-shadow: 0 0 20px rgba(0,0,0,.3);
+  backdrop-filter: blur(10px); /* difumina el fondo detrás */
 }
+
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: none;
+}
+
+
 </style>
