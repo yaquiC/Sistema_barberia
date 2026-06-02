@@ -42,151 +42,110 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="p-6">
+  <div class="p-8 bg-gray-100 min-h-screen">
 
     <!-- Encabezado -->
-    <div class="mb-8">
+    <div class="mb-10">
       <h1 class="text-4xl font-bold text-gray-800">
         Panel de Administración
       </h1>
-
       <p class="text-gray-500 mt-2">
         Bienvenido al sistema de gestión de Legend Barber 💈
       </p>
     </div>
 
-    <!-- Tarjetas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-
-      <!-- Citas -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500">
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-gray-500 text-sm">Citas</p>
-            <h2 class="text-3xl font-bold text-gray-800">
-              {{ totalAppointments }}
-            </h2>
+    <!-- Bloque de Cards -->
+    <div class="mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <!-- Card Citas -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 hover:shadow-xl transition-all duration-300">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-gray-500 text-sm">Citas</p>
+              <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ totalAppointments }}</h2>
+            </div>
+            <span class="text-5xl">📅</span>
           </div>
+        </div>
 
-          <div class="text-4xl">
-            📅
+        <!-- Card Usuarios -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-green-500 hover:shadow-xl transition-all duration-300">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-gray-500 text-sm">Usuarios</p>
+              <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ totalUsers }}</h2>
+            </div>
+            <span class="text-5xl">👤</span>
+          </div>
+        </div>
+
+        <!-- Card Barberos -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-gray-500 text-sm">Barberos</p>
+              <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ totalBarbers }}</h2>
+            </div>
+            <span class="text-5xl">💈</span>
+          </div>
+        </div>
+
+        <!-- Card Servicios -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500 hover:shadow-xl transition-all duration-300">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-gray-500 text-sm">Servicios</p>
+              <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ totalServices }}</h2>
+            </div>
+            <span class="text-5xl">✂️</span>
           </div>
         </div>
       </div>
-
-      <!-- Usuarios -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-green-500">
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-gray-500 text-sm">Usuarios</p>
-            <h2 class="text-3xl font-bold text-gray-800">
-              {{ totalUsers }}
-            </h2>
-          </div>
-
-          <div class="text-4xl">
-            👤
-          </div>
-        </div>
-      </div>
-
-      <!-- Barberos -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500">
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-gray-500 text-sm">Barberos</p>
-            <h2 class="text-3xl font-bold text-gray-800">
-              {{ totalBarbers }}
-            </h2>
-          </div>
-
-          <div class="text-4xl">
-            💈
-          </div>
-        </div>
-      </div>
-
-      <!-- Servicios -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500">
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-gray-500 text-sm">Servicios</p>
-            <h2 class="text-3xl font-bold text-gray-800">
-              {{ totalServices }}
-            </h2>
-          </div>
-
-          <div class="text-4xl">
-            ✂️
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <!-- Tabla Actividad Reciente -->
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <!-- Bloque de Tabla -->
+    <div class="mt-4">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-300">
+        <!-- Título -->
+        <div class="px-3 py-3 border-b border-gray-200">
+          <h4 class="text-2xl font-bold text-gray-800">Últimas Citas Registradas</h4>
+        </div>
 
-      <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-xl font-semibold text-gray-800">
-          Últimas Citas Registradas
-        </h3>
+        <!-- Tabla -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead class="bg-gray-800 text-white">
+              <tr>
+                <th class="px-4 py-3 text-left">Cliente</th>
+                <th class="px-4 py-3 text-left">Barbero</th>
+                <th class="px-4 py-3 text-left">Servicio</th>
+                <th class="px-4 py-3 text-left">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="appointment in recentAppointments" :key="appointment.id"
+                  class="odd:bg-gray-50 even:bg-white hover:bg-blue-50 transition-colors">
+                <td class="px-4 py-3 font-medium text-gray-800">{{ appointment.user?.name }}</td>
+                <td class="px-4 py-3 text-gray-600">{{ appointment.barber?.name }}</td>
+                <td class="px-4 py-3 text-gray-600">{{ appointment.service?.name }}</td>
+                <td class="px-4 py-3">
+                  <span v-if="appointment.status === 'en_proceso'"
+                        class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                    En Proceso
+                  </span>
+                  <span v-else
+                        class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    Finalizada
+                  </span>
+                </td>
+              </tr>
+              <tr v-if="recentAppointments.length === 0">
+                <td colspan="4" class="text-center py-6 text-gray-500">No hay citas registradas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <div class="overflow-x-auto">
-
-        <table class="min-w-full">
-
-          <thead class="bg-slate-800 text-white">
-            <tr>
-              <th class="px-6 py-4 text-left">Cliente</th>
-              <th class="px-6 py-4 text-left">Barbero</th>
-              <th class="px-6 py-4 text-left">Servicio</th>
-              <th class="px-6 py-4 text-left">Estado</th>
-
-
-            </tr>
-          </thead>
-
-          <tbody class="divide-y divide-gray-200">
-
-            <tr v-for="appointment in recentAppointments" :key="appointment.id" class="hover:bg-gray-50 transition">
-              <td class="px-6 py-4 font-medium text-gray-800">
-                {{ appointment.user?.name }}
-              </td>
-
-              <td class="px-6 py-4 text-gray-600">
-                {{ appointment.barber?.name }}
-              </td>
-
-              <td class="px-6 py-4 text-gray-600">
-                {{ appointment.service?.name }}
-              </td>
-
-              <td class="px-6 py-4">
-                <span v-if="appointment.status === 'en_proceso'"
-                  class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
-                  En Proceso
-                </span>
-
-                <span v-else class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                  Finalizada
-                </span>
-              </td>
-            </tr>
-
-            <tr v-if="recentAppointments.length === 0">
-              <td colspan="5" class="text-center py-8 text-gray-500">
-                No hay citas registradas
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
     </div>
 
   </div>

@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 
 import UserModal from "../components/UserModal.vue";
 
+import{UserPlus} from "lucide-vue-next";
 import {
   getUsers,
   createUser,
@@ -40,8 +41,9 @@ onMounted(() => {
     <div class="d-flex justify-content-between mb-4">
       <h2>Usuarios</h2>
 
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">
-        Nuevo Usuario
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+        <UserPlus :size="18" />
+        Agregar Usuario
       </button>
     </div>
 

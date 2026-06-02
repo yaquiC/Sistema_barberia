@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import {UserPlus} from "lucide-vue-next";
 import BarberModal from "../components/BarberModal.vue";
 
 import {
@@ -69,7 +70,8 @@ onMounted(() => {
         data-bs-toggle="modal"
         data-bs-target="#barberModal"
       >
-        Nuevo Barbero
+      <UserPlus :size="18" />
+        Agregar Barbero
       </button>
     </div>
 

@@ -1,6 +1,6 @@
 <script setup>
 
-import { useRoute } from "vue-router";
+import { useRouter,useRoute } from "vue-router"
 import {
   House,
   Scissors,
@@ -10,7 +10,15 @@ import {
   LogOut,
 } from "lucide-vue-next";
 
+const router = useRouter();
 const route = useRoute();
+
+const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  router.push("/login");
+};
 </script>
 
 <template>
@@ -63,7 +71,7 @@ const route = useRoute();
 
       <!-- Logout -->
       <div class="border-t border-gray-800 p-4">
-        <button @click="logout" class="flex items-center gap-3 text-sm text-gray-400 hover:text-red-500 transition">
+        <button  @click="logout" class="flex items-center gap-3 text-sm text-gray-400 hover:text-red-500 transition">
           <LogOut :size="20" />
           Cerrar Sesión
         </button>
