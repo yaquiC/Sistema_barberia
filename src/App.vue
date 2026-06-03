@@ -97,7 +97,8 @@ const logout = () => {
 .content {
   flex: 1;
   padding: 24px;
-  background: #f1f5f9;
+  background: #111827;
+  color: white;
 }
 
 .content-full {

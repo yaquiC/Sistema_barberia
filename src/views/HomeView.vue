@@ -42,109 +42,193 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="p-8 bg-gray-100 min-h-screen">
+  <div class="p-8 bg-[#0A0A0A] min-h-screen text-white">
 
     <!-- Encabezado -->
     <div class="mb-10">
-      <h1 class="text-4xl font-bold text-gray-800">
+      <h1 class="text-4xl font-bold text-white">
         Panel de Administración
       </h1>
-      <p class="text-gray-500 mt-2">
+
+      <p class="text-gray-400 mt-2">
         Bienvenido al sistema de gestión de Legend Barber 💈
       </p>
     </div>
 
-    <!-- Bloque de Cards -->
+    <!-- Cards -->
     <div class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <!-- Card Citas -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 hover:shadow-xl transition-all duration-300">
+
+        <!-- Citas -->
+        <div
+          class="bg-[#151515] border border-[#252525] rounded-2xl p-6 hover:border-blue-500 transition-all duration-300"
+        >
           <div class="flex justify-between items-center">
             <div>
-              <p class="text-gray-500 text-sm">Citas</p>
-              <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ totalAppointments }}</h2>
+              <p class="text-gray-400 text-sm">
+                Citas
+              </p>
+
+              <h2 class="text-3xl font-bold text-white mt-2">
+                {{ totalAppointments }}
+              </h2>
             </div>
+
             <span class="text-5xl">📅</span>
           </div>
         </div>
 
-        <!-- Card Usuarios -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-green-500 hover:shadow-xl transition-all duration-300">
+        <!-- Usuarios -->
+        <div
+          class="bg-[#151515] border border-[#252525] rounded-2xl p-6 hover:border-green-500 transition-all duration-300"
+        >
           <div class="flex justify-between items-center">
             <div>
-              <p class="text-gray-500 text-sm">Usuarios</p>
-              <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ totalUsers }}</h2>
+              <p class="text-gray-400 text-sm">
+                Usuarios
+              </p>
+
+              <h2 class="text-3xl font-bold text-white mt-2">
+                {{ totalUsers }}
+              </h2>
             </div>
+
             <span class="text-5xl">👤</span>
           </div>
         </div>
 
-        <!-- Card Barberos -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300">
+        <!-- Barberos -->
+        <div
+          class="bg-[#151515] border border-[#252525] rounded-2xl p-6 hover:border-purple-500 transition-all duration-300"
+        >
           <div class="flex justify-between items-center">
             <div>
-              <p class="text-gray-500 text-sm">Barberos</p>
-              <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ totalBarbers }}</h2>
+              <p class="text-gray-400 text-sm">
+                Barberos
+              </p>
+
+              <h2 class="text-3xl font-bold text-white mt-2">
+                {{ totalBarbers }}
+              </h2>
             </div>
+
             <span class="text-5xl">💈</span>
           </div>
         </div>
 
-        <!-- Card Servicios -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500 hover:shadow-xl transition-all duration-300">
+        <!-- Servicios -->
+        <div
+          class="bg-[#151515] border border-[#252525] rounded-2xl p-6 hover:border-orange-500 transition-all duration-300"
+        >
           <div class="flex justify-between items-center">
             <div>
-              <p class="text-gray-500 text-sm">Servicios</p>
-              <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ totalServices }}</h2>
+              <p class="text-gray-400 text-sm">
+                Servicios
+              </p>
+
+              <h2 class="text-3xl font-bold text-white mt-2">
+                {{ totalServices }}
+              </h2>
             </div>
+
             <span class="text-5xl">✂️</span>
           </div>
         </div>
+
       </div>
     </div>
 
-    <!-- Bloque de Tabla -->
+    <!-- Tabla -->
     <div class="mt-4">
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-300">
+      <div
+        class="bg-[#151515] rounded-2xl border border-[#252525] overflow-hidden"
+      >
+
         <!-- Título -->
-        <div class="px-3 py-3 border-b border-gray-200">
-          <h4 class="text-2xl font-bold text-gray-800">Últimas Citas Registradas</h4>
+        <div class="px-6 py-5 border-b border-[#252525]">
+          <h4 class="text-2xl font-bold text-white">
+            Últimas Citas Registradas
+          </h4>
         </div>
 
         <!-- Tabla -->
         <div class="overflow-x-auto">
-          <table class="min-w-full border-collapse">
-            <thead class="bg-gray-800 text-white">
+
+          <table class="min-w-full">
+
+            <thead class="bg-[#101010]">
               <tr>
-                <th class="px-4 py-3 text-left">Cliente</th>
-                <th class="px-4 py-3 text-left">Barbero</th>
-                <th class="px-4 py-3 text-left">Servicio</th>
-                <th class="px-4 py-3 text-left">Estado</th>
+                <th class="px-4 py-4 text-left text-gray-300">
+                  Cliente
+                </th>
+
+                <th class="px-4 py-4 text-left text-gray-300">
+                  Barbero
+                </th>
+
+                <th class="px-4 py-4 text-left text-gray-300">
+                  Servicio
+                </th>
+
+                <th class="px-4 py-4 text-left text-gray-300">
+                  Estado
+                </th>
               </tr>
             </thead>
+
             <tbody>
-              <tr v-for="appointment in recentAppointments" :key="appointment.id"
-                  class="odd:bg-gray-50 even:bg-white hover:bg-blue-50 transition-colors">
-                <td class="px-4 py-3 font-medium text-gray-800">{{ appointment.user?.name }}</td>
-                <td class="px-4 py-3 text-gray-600">{{ appointment.barber?.name }}</td>
-                <td class="px-4 py-3 text-gray-600">{{ appointment.service?.name }}</td>
-                <td class="px-4 py-3">
-                  <span v-if="appointment.status === 'en_proceso'"
-                        class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+
+              <tr
+                v-for="appointment in recentAppointments"
+                :key="appointment.id"
+                class="border-t border-[#252525] hover:bg-[#1F1F1F] transition"
+              >
+                <td class="px-4 py-4 text-white font-medium">
+                  {{ appointment.user?.name }}
+                </td>
+
+                <td class="px-4 py-4 text-gray-300">
+                  {{ appointment.barber?.name }}
+                </td>
+
+                <td class="px-4 py-4 text-gray-300">
+                  {{ appointment.service?.name }}
+                </td>
+
+                <td class="px-4 py-4">
+
+                  <span
+                    v-if="appointment.status === 'en_proceso'"
+                    class="px-3 py-1 rounded-full text-sm bg-yellow-500/20 text-yellow-400"
+                  >
                     En Proceso
                   </span>
-                  <span v-else
-                        class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+
+                  <span
+                    v-else
+                    class="px-3 py-1 rounded-full text-sm bg-green-500/20 text-green-400"
+                  >
                     Finalizada
                   </span>
+
                 </td>
               </tr>
+
               <tr v-if="recentAppointments.length === 0">
-                <td colspan="4" class="text-center py-6 text-gray-500">No hay citas registradas</td>
+                <td
+                  colspan="4"
+                  class="text-center py-6 text-gray-400"
+                >
+                  No hay citas registradas
+                </td>
               </tr>
+
             </tbody>
+
           </table>
+
         </div>
+
       </div>
     </div>
 

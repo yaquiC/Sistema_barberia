@@ -45,53 +45,59 @@ onMounted(() => {
       @click="openCreateModal"
         data-bs-toggle="modal"
         data-bs-target="#userModal"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow flex items-center gap-2">
         <UserPlus :size="18" />
         Agregar Usuario
       </button>
     </div>
 
 
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-      <table class="min-w-full">
-        <thead class="bg-slate-800 text-white">
-          <tr>
-            <th class="px-6 py-4 text-left font-semibold">ID</th>
-            <th class="px-6 py-4 text-left font-semibold">Nombre</th>
-            <th class="px-6 py-4 text-left font-semibold">Correo</th>
-            <th class="px-6 py-4 text-left font-semibold">Rol</th>
-          </tr>
-        </thead>
+    <div class="bg-[#151515] rounded-xl shadow-lg overflow-hidden border border-[#252525]">
+  <table class="min-w-full">
+    <thead class="bg-[#0F0F0F] text-white">
+      <tr>
+        <th class="px-6 py-4 text-left font-semibold">ID</th>
+        <th class="px-6 py-4 text-left font-semibold">Nombre</th>
+        <th class="px-6 py-4 text-left font-semibold">Correo</th>
+        <th class="px-6 py-4 text-left font-semibold">Rol</th>
+      </tr>
+    </thead>
 
-        <tbody class="divide-y divide-gray-200">
-          <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50 transition duration-200">
-            <td class="px-6 py-4 text-gray-700">
-              {{ user.id }}
-            </td>
+    <tbody class="divide-y divide-slate-700">
+      <tr
+        v-for="user in users"
+        :key="user.id"
+        class="hover:bg-slate-800 transition duration-200"
+      >
+        <td class="px-6 py-4 text-slate-300">
+          {{ user.id }}
+        </td>
 
-            <td class="px-6 py-4 font-medium text-gray-900">
-              {{ user.name }}
-            </td>
+        <td class="px-6 py-4 font-medium text-white">
+          {{ user.name }}
+        </td>
 
-            <td class="px-6 py-4 text-gray-600">
-              {{ user.email }}
-            </td>
+        <td class="px-6 py-4 text-slate-400">
+          {{ user.email }}
+        </td>
 
-            <td class="px-6 py-4">
-              <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                {{ user.role }}
-              </span>
-            </td>
-          </tr>
+        <td class="px-6 py-4">
+          <span
+            class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-900 text-blue-300"
+          >
+            {{ user.role }}
+          </span>
+        </td>
+      </tr>
 
-          <tr v-if="users.length === 0">
-            <td colspan="4" class="text-center py-6 text-gray-500">
-              No hay usuarios registrados
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <tr v-if="users.length === 0">
+        <td colspan="4" class="text-center py-6 text-slate-400">
+          No hay usuarios registrados
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 
     <UserModal @save="saveUser" />

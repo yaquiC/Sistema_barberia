@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import {UserPlus} from "lucide-vue-next";
+import { UserPlus, SquarePen, Trash2 } from "lucide-vue-next";
 import BarberModal from "../components/BarberModal.vue";
 
 import {
@@ -65,23 +65,16 @@ onMounted(() => {
       <h2 class="fw-bold">Barberos</h2>
 
       <button
-        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow"
-        @click="openCreateModal"
-        data-bs-toggle="modal"
-        data-bs-target="#barberModal"
-      >
-      <UserPlus :size="18" />
+        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow flex items-center gap-2"
+        @click="openCreateModal" data-bs-toggle="modal" data-bs-target="#barberModal">
+        <UserPlus :size="18" />
         Agregar Barbero
       </button>
     </div>
 
     <!-- Cards -->
     <div class="row g-4">
-      <div
-        class="col-md-4"
-        v-for="barber in barbers"
-        :key="barber.id"
-      >
+      <div class="col-md-4" v-for="barber in barbers" :key="barber.id">
         <div class="card shadow-lg border-0 rounded-4 h-100 d-flex flex-column">
           <div class="card-body p-4">
             <h4 class="fw-bold mb-3">
@@ -95,22 +88,18 @@ onMounted(() => {
           </div>
 
           <!-- Footer -->
-          <div class="card-footer bg-white border-top-0 mt-auto p-3">
-            <div class="grid grid-cols-2 gap-2">
+          <div class="card-footer bg-transparent border-top border-[#252525] mt-auto p-3">
+            <div class="flex justify-center items-center gap-3">
               <button
-                class="bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg transition"
-                @click="openEditModal(barber)"
-                data-bs-toggle="modal"
-                data-bs-target="#barberModal"
-              >
-                Editar
+                class="w-10 h-10 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full shadow-sm transition"
+                @click="openEditModal(barber)" data-bs-toggle="modal" data-bs-target="#barberModal" title="Editar">
+                <SquarePen class="w-4 h-4" />
               </button>
 
               <button
-                class="bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition"
-                @click="removeBarber(barber.id)"
-              >
-                Eliminar
+                class="w-10 h-10 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-full shadow-sm transition"
+                @click="removeBarber(barber.id)" title="Eliminar">
+                <Trash2 class="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -118,17 +107,11 @@ onMounted(() => {
       </div>
 
       <!-- Sin registros -->
-      <div
-        v-if="barbers.length === 0"
-        class="text-center mt-5 text-muted"
-      >
+      <div v-if="barbers.length === 0" class="text-center mt-5 text-muted">
         No hay barberos registrados
       </div>
     </div>
 
-    <BarberModal
-      :barber="selectedBarber"
-      @save="saveBarber"
-    />
+    <BarberModal :barber="selectedBarber" @save="saveBarber" />
   </div>
 </template>

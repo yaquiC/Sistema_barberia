@@ -1,9 +1,98 @@
 @import "./base.css";
 @import "tailwindcss";
-body {
-  margin: 0;
-}
+
 
 #app {
   width: 100%;
+}
+
+body {
+  background: #0a0a0a;
+  color: #ffffff;
+  margin: 0;
+}
+
+.content {
+  background: #0a0a0a !important;
+}
+
+/* Cards */
+.card {
+  background: #151515 !important;
+  border: 1px solid #252525 !important;
+  color: white !important;
+  border-radius: 16px;
+}
+
+/* Tablas */
+.table {
+  color: white !important;
+}
+
+.table thead {
+  background: #151515;
+}
+
+.table tbody tr {
+  background: #111111;
+}
+
+.table tbody tr:hover {
+  background: #1a1a1a;
+}
+
+/* Inputs */
+.form-control,
+.form-select {
+  background: #111111 !important;
+  border: 1px solid #252525 !important;
+  color: white !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background: #111111 !important;
+  color: white !important;
+  border-color: #8ea8ff !important;
+  box-shadow: 0 0 0 0.2rem rgba(142, 168, 255, 0.25);
+}
+
+/* Modales */
+.modal-content {
+  background: #151515;
+  color: white;
+  border: 1px solid #252525;
+}
+
+.stats-card {
+  background: #151515;
+  border: 1px solid #252525;
+  border-radius: 18px;
+  color: white;
+  transition: 0.3s;
+}
+
+.stats-card:hover {
+  transform: translateY(-3px);
+  border-color: #8ea8ff;
+}
+
+.modal-content {
+  background-color: #111827 !important;
+  color: white !important;
+  border: 1px solid #374151 !important;
+}
+
+.modal-header,
+.modal-footer {
+  background-color: #111827 !important;
+  border-color: #374151 !important;
+}
+
+.modal-body {
+  background-color: #111827 !important;
+}
+
+.modal-title {
+  color: white !important;
 }
