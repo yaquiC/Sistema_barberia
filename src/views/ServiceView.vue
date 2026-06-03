@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { Plus, Pencil, Trash2 } from "lucide-vue-next";
 import ServiceModal from "../components/ServiceModal.vue";
-
+import Swal from "sweetalert2";
 import {
   getServices,
   createService,
@@ -34,25 +34,89 @@ const saveService = async (data) => {
   try {
     if (data.id) {
       await updateService(data.id, data);
+
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Servicio actualizado correctamente",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+      });
+
     } else {
       await createService(data);
+
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Servicio creado correctamente",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+      });
     }
 
     await loadServices();
+
   } catch (error) {
     console.error(error);
+
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "error",
+      title: "Error al guardar el servicio",
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+    });
   }
 };
 
 const removeService = async (id) => {
-  if (!confirm("¿Eliminar servicio?")) return;
+  const result = await Swal.fire({
+    title: "¿Eliminar servicio?",
+    text: "Esta acción no se puede deshacer",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#dc2626",
+    cancelButtonColor: "#64748b",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+  });
+
+  if (!result.isConfirmed) return;
 
   try {
     await deleteService(id);
 
     await loadServices();
+
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "Servicio eliminado correctamente",
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+    });
+
   } catch (error) {
     console.error(error);
+
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "error",
+      title: "Error al eliminar el servicio",
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+    });
   }
 };
 

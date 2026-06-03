@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { SquarePen, Trash2, Eye } from "lucide-vue-next";
+import Swal from "sweetalert2";
 import {
   getAppointments,
   deleteAppointment,
@@ -29,13 +30,48 @@ const createAppointment = () => {
   router.push("/appointment/create");
 };
 
+
 const removeAppointment = async (id) => {
-  if (!confirm("¿Eliminar cita?")) return;
+  const result = await Swal.fire({
+    title: "¿Eliminar cita?",
+    text: "Esta acción no se puede deshacer",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#dc2626",
+    cancelButtonColor: "#64748b",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+  });
+
+  if (!result.isConfirmed) return;
+
   try {
     await deleteAppointment(id);
+
     await loadAppointments();
+
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "Cita eliminada correctamente",
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+    });
+
   } catch (error) {
     console.error(error);
+
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "error",
+      title: "Error al eliminar la cita",
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+    });
   }
 };
 
@@ -116,92 +152,107 @@ onMounted(() => {
 
     <!-- Modal -->
     <div class="modal fade" id="appointmentDetailModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-white rounded-lg shadow-md border border-gray-200" v-if="selectedAppointment">
+  <div class="modal-dialog modal-dialog-centered">
+    <div
+      class="modal-content bg-slate-800 border border-slate-700 text-white"
+      v-if="selectedAppointment"
+    >
 
-          <!-- Header -->
-          <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
-            <h5 class="text-lg font-semibold text-gray-800">
-              Detalle de la Cita #{{ selectedAppointment.id }}
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-slate-700 px-4 py-3">
+        <h5 class="text-lg font-semibold text-white">
+          Detalle de la Cita #{{ selectedAppointment.id }}
+        </h5>
 
-          <!-- Body -->
-          <div class="px-5 py-4">
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
 
-            <div class="grid grid-cols-2 gap-y-4">
+      <!-- Body -->
+      <div class="px-5 py-4">
 
-              <span class="font-semibold text-gray-800">
-                Cliente:
-              </span>
+        <div class="grid grid-cols-2 gap-y-4">
 
-              <span class="text-gray-600">
-                {{ selectedAppointment.user?.name }}
-              </span>
+          <span class="font-semibold text-white">
+            Cliente:
+          </span>
 
-              <span class="font-semibold text-gray-800">
-                Barbero:
-              </span>
+          <span class="text-slate-300">
+            {{ selectedAppointment.user?.name }}
+          </span>
 
-              <span class="text-gray-600">
-                {{ selectedAppointment.barber?.name }}
-              </span>
+          <span class="font-semibold text-white">
+            Barbero:
+          </span>
 
-              <span class="font-semibold text-gray-800">
-                Servicio:
-              </span>
+          <span class="text-slate-300">
+            {{ selectedAppointment.barber?.name }}
+          </span>
 
-              <span class="text-gray-600">
-                {{ selectedAppointment.service?.name }}
-              </span>
+          <span class="font-semibold text-white">
+            Servicio:
+          </span>
 
-              <span class="font-semibold text-gray-800">
-                Fecha:
-              </span>
+          <span class="text-slate-300">
+            {{ selectedAppointment.service?.name }}
+          </span>
 
-              <span class="text-gray-600">
-                {{ selectedAppointment.date }}
-              </span>
+          <span class="font-semibold text-white">
+            Fecha:
+          </span>
 
-              <span class="font-semibold text-gray-800">
-                Hora:
-              </span>
+          <span class="text-slate-300">
+            {{ selectedAppointment.date }}
+          </span>
 
-              <span class="text-gray-600">
-                {{ selectedAppointment.time }}
-              </span>
+          <span class="font-semibold text-white">
+            Hora:
+          </span>
 
-              <span class="font-semibold text-gray-800">
-                Estado
-              </span>
+          <span class="text-slate-300">
+            {{ selectedAppointment.time }}
+          </span>
 
-              <div>
-                <span v-if="selectedAppointment.status === 'en_proceso'"
-                  class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
-                  En Proceso
-                </span>
+          <span class="font-semibold text-white">
+            Estado:
+          </span>
 
-                <span v-else class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                  Finalizada
-                </span>
-              </div>
+          <div>
+            <span
+              v-if="selectedAppointment.status === 'en_proceso'"
+              class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-500/20 text-yellow-300"
+            >
+              En Proceso
+            </span>
 
-            </div>
-
-          </div>
-
-          <!-- Footer -->
-          <div class="flex justify-end border-t border-gray-200 px-4 py-3">
-            <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium px-4 py-2 rounded-md transition"
-              data-bs-dismiss="modal">
-              Cerrar
-            </button>
+            <span
+              v-else
+              class="px-3 py-1 rounded-full text-sm font-medium bg-green-500/20 text-green-300"
+            >
+              Finalizada
+            </span>
           </div>
 
         </div>
+
       </div>
+
+      <!-- Footer -->
+      <div class="flex justify-end border-t border-slate-700 px-4 py-3">
+        <button
+          class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-md transition"
+          data-bs-dismiss="modal"
+        >
+          Cerrar
+        </button>
+      </div>
+
     </div>
+  </div>
+</div>
 
 
   </div>
