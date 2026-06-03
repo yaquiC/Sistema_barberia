@@ -140,7 +140,7 @@ onMounted(() => {
         data-bs-toggle="modal"
         data-bs-target="#serviceModal"
       >
-        <Plus class="w-4 h-4" />
+        <Plus class="w-8 h-8" />
         Agregar Servicio
       </button>
     </div>
@@ -203,7 +203,7 @@ onMounted(() => {
                   data-bs-target="#serviceModal"
                   title="Editar"
                 >
-                  <Pencil class="w-4 h-4" />
+                  <Pencil class="w-6 h-6" />
                 </button>
 
                 <button
@@ -211,7 +211,7 @@ onMounted(() => {
                   @click="removeService(service.id)"
                   title="Eliminar"
                 >
-                  <Trash2 class="w-4 h-4" />
+                  <Trash2 class="w-6 h-6" />
                 </button>
 
               </div>

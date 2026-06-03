@@ -1,32 +1,33 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { ref, onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
 
 import { getUsers } from "../services/UserService";
 import { getBarbers } from "../services/barberService";
-import { getServices } from "../services/serviceService";
+import { getServices } from "../services/ServiceService";
 
-import {
-  createAppointment,
-  updateAppointment,
-  getAppointmentById,
-} from "../services/appointmentService";
+import { createAppointment } from "../services/AppointmentService";
 
 const router = useRouter();
-const route = useRoute();
 
 const users = ref([]);
 const barbers = ref([]);
 const services = ref([]);
 
 const form = ref({
-  id: null,
   userId: "",
   barberId: "",
-  serviceId: "",
   date: "",
   time: "",
   status: "en_proceso",
+  services: [],
+});
+
+const total = computed(() => {
+  return form.value.services.reduce(
+    (sum, service) => sum + Number(service.price),
+    0
+  );
 });
 
 const loadData = async () => {
@@ -44,196 +45,207 @@ const loadData = async () => {
   }
 };
 
-const loadAppointment = async () => {
-  try {
-    const id = route.params.id;
-
-    if (!id) return;
-
-    const response = await getAppointmentById(id);
-
-    const appointment = response.data;
-
-    form.value = {
-      id: appointment.id,
-      userId: appointment.user.id,
-      barberId: appointment.barber.id,
-      serviceId: appointment.service.id,
-      date: appointment.date,
-      time: appointment.time,
-      status: appointment.status,
-    };
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 const saveAppointment = async () => {
   try {
-    if (form.value.id) {
-      await updateAppointment(
-        form.value.id,
-        form.value
-      );
-    } else {
-      await createAppointment(form.value);
-    }
+    const payload = {
+      userId: Number(form.value.userId),
+      barberId: Number(form.value.barberId),
+      date: form.value.date,
+      time: form.value.time,
+      status: form.value.status,
+
+      services: form.value.services.map(
+        service => service.id
+      ),
+    };
+
+    await createAppointment(payload);
 
     router.push("/appointment");
+
   } catch (error) {
     console.error(error);
+    alert("Error al crear la cita");
   }
 };
 
-onMounted(async () => {
-  await loadData();
-  await loadAppointment();
+onMounted(() => {
+  loadData();
 });
 </script>
 
 <template>
-  <div class="container mt-4 text-white">
+  <div class="container mt-4">
 
-    <div class="bg-gray-900 rounded-lg shadow-lg border border-gray-700">
+    <div class="card shadow">
 
-      <!-- Header -->
-      <div class="flex items-center justify-between border-b border-gray-700 px-4 py-3">
-        <h3 class="text-lg font-semibold text-white">
-          {{ form.id ? "Editar Cita" : "Nueva Cita" }}
-        </h3>
+      <div class="card-header">
+        <h3>Nueva Cita</h3>
       </div>
 
-      <!-- Body -->
-      <div class="px-4 py-5">
-        <form
-          @submit.prevent="saveAppointment"
-          class="grid grid-cols-1 md:grid-cols-2 gap-4"
-        >
+      <div class="card-body">
 
-          <!-- Usuario -->
-          <div>
-            <label class="block mb-1 text-sm font-medium text-gray-300">
-              Usuario
-            </label>
+        <form @submit.prevent="saveAppointment">
 
-            <select
-              v-model="form.userId"
-              class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              required
-            >
-              <option value="">Seleccione un usuario</option>
+          <div class="row">
 
-              <option
-                v-for="user in users"
-                :key="user.id"
-                :value="user.id"
+            <!-- Usuario -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">
+                Cliente
+              </label>
+
+              <select
+                v-model="form.userId"
+                class="form-select"
+                required
               >
-                {{ user.name }}
-              </option>
-            </select>
-          </div>
+                <option value="">
+                  Seleccione un cliente
+                </option>
 
-          <!-- Barbero -->
-          <div>
-            <label class="block mb-1 text-sm font-medium text-gray-300">
-              Barbero
-            </label>
+                <option
+                  v-for="user in users"
+                  :key="user.id"
+                  :value="user.id"
+                >
+                  {{ user.name }}
+                </option>
+              </select>
+            </div>
 
-            <select
-              v-model="form.barberId"
-              class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              required
-            >
-              <option value="">Seleccione un barbero</option>
+            <!-- Barbero -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">
+                Barbero
+              </label>
 
-              <option
-                v-for="barber in barbers"
-                :key="barber.id"
-                :value="barber.id"
+              <select
+                v-model="form.barberId"
+                class="form-select"
+                required
               >
-                {{ barber.name }}
-              </option>
-            </select>
-          </div>
+                <option value="">
+                  Seleccione un barbero
+                </option>
 
-          <!-- Fecha -->
-          <div>
-            <label class="block mb-1 text-sm font-medium text-gray-300">
-              Fecha
-            </label>
+                <option
+                  v-for="barber in barbers"
+                  :key="barber.id"
+                  :value="barber.id"
+                >
+                  {{ barber.name }}
+                </option>
+              </select>
+            </div>
 
-            <input
-              type="date"
-              v-model="form.date"
-              class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              required
-            />
-          </div>
+            <!-- Fecha -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">
+                Fecha
+              </label>
 
-          <!-- Hora -->
-          <div>
-            <label class="block mb-1 text-sm font-medium text-gray-300">
-              Hora
-            </label>
+              <input
+                type="date"
+                v-model="form.date"
+                class="form-control"
+                required
+              />
+            </div>
 
-            <input
-              type="time"
-              v-model="form.time"
-              class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              required
-            />
-          </div>
+            <!-- Hora -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">
+                Hora
+              </label>
 
-          <!-- Servicio -->
-          <div>
-            <label class="block mb-1 text-sm font-medium text-gray-300">
-              Servicio
-            </label>
+              <input
+                type="time"
+                v-model="form.time"
+                class="form-control"
+                required
+              />
+            </div>
 
-            <select
-              v-model="form.serviceId"
-              class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              required
-            >
-              <option value="">Seleccione un servicio</option>
+            <!-- Estado -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">
+                Estado
+              </label>
 
-              <option
-                v-for="service in services"
-                :key="service.id"
-                :value="service.id"
+              <select
+                v-model="form.status"
+                class="form-select"
               >
-                {{ service.name }}
-              </option>
-            </select>
+                <option value="en_proceso">
+                  En Proceso
+                </option>
+
+                <option value="finalizada">
+                  Finalizada
+                </option>
+              </select>
+            </div>
+
+            <!-- Servicios -->
+            <div class="col-md-12 mb-3">
+
+              <label class="form-label">
+                Servicios
+              </label>
+
+              <div class="row">
+
+                <div
+                  class="col-md-4 mb-2"
+                  v-for="service in services"
+                  :key="service.id"
+                >
+                  <div class="form-check border rounded p-2">
+
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      :value="service"
+                      v-model="form.services"
+                      :id="`service-${service.id}`"
+                    >
+
+                    <label
+                      class="form-check-label ms-2"
+                      :for="`service-${service.id}`"
+                    >
+                      {{ service.name }}
+                      <br>
+                      <small>
+                        ${{ service.price }}
+                      </small>
+                    </label>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Total -->
+            <div class="col-md-12 mb-4">
+
+              <div class="alert alert-info">
+                <strong>Total:</strong>
+                ${{ total.toFixed(2) }}
+              </div>
+
+            </div>
+
           </div>
 
-          <!-- Estado -->
-          <div>
-            <label class="block mb-1 text-sm font-medium text-gray-300">
-              Estado
-            </label>
-
-            <select
-              v-model="form.status"
-              class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              required
-            >
-              <option value="en_proceso">
-                En Proceso
-              </option>
-
-              <option value="finalizada">
-                Finalizada
-              </option>
-            </select>
-          </div>
-
-          <!-- Botones -->
-          <div class="md:col-span-2 flex justify-end gap-3 mt-4">
+          <div class="d-flex justify-content-end gap-2">
 
             <button
               type="button"
-              class="bg-gray-700 hover:bg-gray-600 text-white font-medium px-4 py-2 rounded-md transition"
+              class="btn btn-secondary"
               @click="router.push('/appointment')"
             >
               Cancelar
@@ -241,19 +253,18 @@ onMounted(async () => {
 
             <button
               type="submit"
-              class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md shadow-sm transition"
+              class="btn btn-primary"
             >
-              Guardar
+              Guardar Cita
             </button>
 
           </div>
 
         </form>
+
       </div>
 
     </div>
 
   </div>
 </template>
-
-

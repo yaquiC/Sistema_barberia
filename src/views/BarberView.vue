@@ -89,7 +89,7 @@ const removeBarber = async (id) => {
     await deleteBarber(id);
 
     barbers.value = barbers.value.filter(
-      barber => barber.id !== id
+      (barber) => barber.id !== id
     );
 
     Swal.fire({
@@ -101,7 +101,6 @@ const removeBarber = async (id) => {
       timer: 2500,
       timerProgressBar: true,
     });
-
   } catch (error) {
     console.error(error);
 
@@ -130,8 +129,11 @@ onMounted(() => {
 
       <button
         class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow flex items-center gap-2"
-        @click="openCreateModal" data-bs-toggle="modal" data-bs-target="#barberModal">
-        <UserPlus :size="18" />
+        @click="openCreateModal"
+        data-bs-toggle="modal"
+        data-bs-target="#barberModal"
+      >
+        <UserPlus class="w-8 h-8" />
         Agregar Barbero
       </button>
     </div>
@@ -144,27 +146,27 @@ onMounted(() => {
             <h4 class="fw-bold mb-3">
               {{ barber.name }}
             </h4>
-
-            <div>
-              <strong>Especialidad:</strong>
-              {{ barber.specialty?.name || "N/A" }}
-            </div>
           </div>
 
           <!-- Footer -->
-          <div class="card-footer bg-transparent border-t border-gray-700 mt-auto p-3">
-
+          <div class="card-footer bg-transparent border-t mt-auto p-3">
             <div class="flex justify-center items-center gap-3">
               <button
                 class="w-10 h-10 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full shadow-sm transition"
-                @click="openEditModal(barber)" data-bs-toggle="modal" data-bs-target="#barberModal" title="Editar">
-                <SquarePen class="w-4 h-4" />
+                @click="openEditModal(barber)"
+                data-bs-toggle="modal"
+                data-bs-target="#barberModal"
+                title="Editar"
+              >
+                <SquarePen class="w-7 h-7" />
               </button>
 
               <button
                 class="w-10 h-10 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-full shadow-sm transition"
-                @click="removeBarber(barber.id)" title="Eliminar">
-                <Trash2 class="w-4 h-4" />
+                @click="removeBarber(barber.id)"
+                title="Eliminar"
+              >
+                <Trash2 class="w-7 h-7" />
               </button>
             </div>
           </div>
@@ -173,7 +175,7 @@ onMounted(() => {
 
       <!-- Sin registros -->
       <div v-if="barbers.length === 0" class="text-center mt-5 text-muted">
-        No hay barberos registrados
+        <span class="text-slate-300">No hay barberos registrados</span>
       </div>
     </div>
 
