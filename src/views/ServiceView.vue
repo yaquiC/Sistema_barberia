@@ -135,7 +135,7 @@ onMounted(() => {
       </h2>
 
       <button
-        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow flex items-center gap-2"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-md shadow flex items-center gap-2"
         @click="openCreateModal"
         data-bs-toggle="modal"
         data-bs-target="#serviceModal"

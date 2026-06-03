@@ -11,20 +11,10 @@ const error = ref("");
 
 const handleLogin = async () => {
   try {
-    const response = await login(
-      email.value,
-      password.value
-    );
+    const response = await login(email.value, password.value);
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify(response.data.user)
-    );
-
-    localStorage.setItem(
-      "token",
-      response.data.token
-    );
+    localStorage.setItem("user", JSON.stringify(response.data.user));
+    localStorage.setItem("token", response.data.token);
 
     router.push("/");
   } catch (error) {
@@ -36,33 +26,23 @@ const handleLogin = async () => {
 <template>
   <section class="vh-100 login-background">
     <div class="container py-5 h-100">
-      <div
-        class="row d-flex justify-content-center align-items-center h-100"
-      >
+      <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div
-            class="card shadow"
-            style="border-radius: 1rem;"
-          >
+        
+          <div class="login-card shadow" style="border-radius: 1rem;">
             <div class="card-body p-5">
 
               <h2 class="text-center mb-4" style="color: white;">
-                 Legen Barber
+                Legen Barber
               </h2>
-              <h5 class="text-center " style="color: white;">Inica sesion</h5>
+              <h5 class="text-center" style="color: white;">Inicia sesión</h5>
 
-              <div
-                v-if="error"
-                class="alert alert-danger"
-              >
+              <div v-if="error" class="alert alert-danger">
                 {{ error }}
               </div>
 
               <div class="mb-4">
-                <label class="form-label">
-                  Correo
-                </label>
-
+                <label class="form-label">Correo</label>
                 <input
                   v-model="email"
                   type="email"
@@ -72,10 +52,7 @@ const handleLogin = async () => {
               </div>
 
               <div class="mb-4">
-                <label class="form-label">
-                  Contraseña
-                </label>
-
+                <label class="form-label">Contraseña</label>
                 <input
                   v-model="password"
                   type="password"
@@ -102,36 +79,27 @@ const handleLogin = async () => {
 <style scoped>
 .login-background {
   position: relative;
-  background-image: url("/images/fondo.png"); /* coloca tu imagen en public/images */
+  background-image: url("/images/fondo.png"); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5); /* oscurece la imagen */
-}
 
 .login-card {
   width: 100%;
   max-width: 420px;
-  background: rgba(255, 255, 255, 0.1); /* semitransparente */
+  background: rgba(255, 255, 255, 0.1) !important; 
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0,0,0,.3);
-  backdrop-filter: blur(10px); /* difumina el fondo detrás */
+  backdrop-filter: blur(10px); 
+  border: none !important;
+  color: white !important;
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border: none;
+.form-control::placeholder {
+  color: #dcdcdc71;
+ 
 }
-
-
 </style>
