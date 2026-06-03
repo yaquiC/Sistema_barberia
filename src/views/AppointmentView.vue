@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import {Eye,SquarePen,Trash2,CalendarPlus} from "lucide-vue-next";
+import {Eye,Trash2,CalendarPlus} from "lucide-vue-next";
 import Swal from "sweetalert2";
 import {
   getAppointments,
@@ -33,9 +33,9 @@ const createAppointment = () => {
   router.push("/appointment/create");
 };
 
-const editAppointment = (id) => {
+/*const editAppointment = (id) => {
   router.push(`/appointment/edit/${id}`);
-};
+};*/
 
 const removeAppointment = async (id) => {
   const result = await Swal.fire({
@@ -145,12 +145,12 @@ onMounted(() => {
                 <Eye class="w-7 h-7" />
               </button>
 
-              <!-- Editar -->
+              <!-- Editar 
               <button
                 class="w-10 h-10 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full shadow-sm transition"
                 @click="editAppointment(appointment.id)" title="Editar">
                 <SquarePen class="w-7 h-7" />
-              </button>
+              </button> -->
 
               <!-- Eliminar -->
               <button
