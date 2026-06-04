@@ -1,14 +1,14 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import {Eye,Trash2,CalendarPlus} from "lucide-vue-next";
+//import { useRouter } from "vue-router";
+import {Eye,Trash2} from "lucide-vue-next";
 import Swal from "sweetalert2";
 import {
   getAppointments,
   deleteAppointment
 } from "../services/AppointmentService";
 
-const router = useRouter();
+//const router = useRouter();
 
 const appointments = ref([]);
 
@@ -29,11 +29,11 @@ const showDetails = (appointment) => {
   selectedAppointment.value = appointment;
 };
 
-const createAppointment = () => {
+/*const createAppointment = () => {
   router.push("/appointment/create");
 };
 
-/*const editAppointment = (id) => {
+const editAppointment = (id) => {
   router.push(`/appointment/edit/${id}`);
 };*/
 
@@ -92,11 +92,11 @@ onMounted(() => {
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2>Citas</h2>
 
-      <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow flex items-center gap-2"
+      <!--<button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow flex items-center gap-2"
        @click="createAppointment">
        <CalendarPlus class="w-7 h-7" />
         Nueva Cita
-      </button>
+      </button>-->
     </div>
 
     <div class="row g-4">
